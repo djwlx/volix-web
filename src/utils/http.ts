@@ -1,7 +1,8 @@
 import axios from 'axios';
+import { serviceUrl } from './env';
 
 const http = axios.create({
-  baseURL: import.meta.env.PROD ? '/api' : 'http://localhost:3000/api',
+  baseURL: `${serviceUrl}/api`,
 });
 
 export { http };
