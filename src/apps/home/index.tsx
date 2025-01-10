@@ -1,32 +1,11 @@
-import { useAppConfig } from '@/hooks';
-import { uploadUrl } from '@/utils/env';
-import { Button, message, Upload, UploadProps } from 'antd';
+import { FlexContainer } from '@/components';
+import AppItem from './components/AppItem';
 
 function Home() {
-  const { isProd, env } = useAppConfig();
-  console.log('envv', isProd, env);
-  const props: UploadProps = {
-    name: 'file',
-    action: uploadUrl,
-    onChange(info) {
-      if (info.file.status !== 'uploading') {
-        console.log(info.file, info.fileList);
-      }
-      if (info.file.status === 'done') {
-        message.success(`${info.file.name} file uploaded successfully`);
-      } else if (info.file.status === 'error') {
-        message.error(`${info.file.name} file upload failed.`);
-      }
-    },
-  };
-
   return (
-    <div>
-      <Button type="primary">Primary Button</Button>
-      <Upload {...props}>
-        <Button>Click to Upload</Button>
-      </Upload>
-    </div>
+    <FlexContainer>
+      <AppItem path="/115/info" iconUrl="https://img.djwl.top/icon/5.png" title="我的115" description="115信息查询" />
+    </FlexContainer>
   );
 }
 export default Home;
