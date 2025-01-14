@@ -1,7 +1,7 @@
 import { ModalHookType } from '@/hooks';
 import { get115QrCode, get115QrCodeStatus, Login115 } from '@/services/115';
-import { CheckCircleFilled, CloseCircleFilled, ReloadOutlined } from '@ant-design/icons';
-import { Button, Modal, QRCode, QRCodeProps, Select, Space, Spin, message } from 'antd';
+import { CheckCircleFilled } from '@ant-design/icons';
+import { Modal, QRCode, QRCodeProps, Select, Space, Spin, message } from 'antd';
 import { useEffect, useMemo, useState } from 'react';
 
 interface LoginModalProps extends ModalHookType {

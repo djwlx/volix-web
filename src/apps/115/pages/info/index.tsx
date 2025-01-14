@@ -28,7 +28,6 @@ function Info115() {
       } else {
         setUserInfo(undefined);
       }
-    } catch (e) {
     } finally {
       setLoading(false);
     }
@@ -39,7 +38,6 @@ function Info115() {
       setExit115Loading(true);
       await exit115Service();
       await get115Info();
-    } catch (e) {
     } finally {
       setExit115Loading(false);
     }

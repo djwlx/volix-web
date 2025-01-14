@@ -4,8 +4,6 @@ import { useEffect, useMemo, useState } from 'react';
 import type { SorterResult } from 'antd/es/table/interface';
 import { downloadFileByUrl, formatFileSize } from '@/utils';
 
-interface FileListProps {}
-
 interface FilePath {
   name: string;
   cid: string;
@@ -18,9 +16,7 @@ interface TableParams {
   filters?: Parameters<GetProp<TableProps, 'onChange'>>[1];
 }
 const { Paragraph } = Typography;
-function FileList(props: FileListProps) {
-  const {} = props;
-
+function FileList() {
   const [tableParams, setTableParams] = useState<TableParams>({
     pagination: {
       current: 1,

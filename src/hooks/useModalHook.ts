@@ -21,7 +21,9 @@ export function useModalHook<T>() {
 
   const setModalData = useCallback((thisMode: ModalModeType, thisData?: T) => {
     if (['open'].includes(thisMode)) {
-      thisData && setData(thisData);
+      if (thisData) {
+        setData(thisData);
+      }
     }
     setMode(thisMode);
   }, []);
