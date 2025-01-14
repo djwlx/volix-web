@@ -1,14 +1,14 @@
 import { get115FileInfo, get115FileList } from '@/services/115';
 import { Avatar, Breadcrumb, Button, GetProp, Space, Table, TableProps, Typography } from 'antd';
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import type { SorterResult } from 'antd/es/table/interface';
+import { downloadFileByUrl, formatFileSize } from '@/utils';
 
 interface FileListProps {}
 
 interface FilePath {
   name: string;
   cid: string;
-  // aid: string;
 }
 type TablePaginationConfig = Exclude<GetProp<TableProps, 'pagination'>, boolean>;
 interface TableParams {
@@ -34,17 +34,8 @@ function FileList(props: FileListProps) {
       cid: '0',
     },
   ]);
-
   const [loading, setLoading] = useState(false);
   const [data, setData] = useState([]);
-  const downloadFileByUrl = (url: string) => {
-    const link = document.createElement('a');
-    link.href = url;
-    link.download = '';
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-  };
 
   const downloadFile = async (pc: string) => {
     const result = await get115FileInfo(pc);
@@ -53,16 +44,6 @@ function FileList(props: FileListProps) {
     if (url) {
       downloadFileByUrl(url);
     }
-  };
-
-  const formatFileSize = (bytes: number) => {
-    if (bytes === 0) return '0 B';
-
-    const sizes = ['B', 'KB', 'MB', 'GB', 'TB'];
-    const i = Math.floor(Math.log(bytes) / Math.log(1024));
-
-    const readableSize = (bytes / Math.pow(1024, i)).toFixed(2);
-    return `${readableSize} ${sizes[i]}`;
   };
 
   const columns = [
@@ -117,13 +98,21 @@ function FileList(props: FileListProps) {
       },
     },
     {
-      title: 'uid',
+      title: 'pc',
       dataIndex: 'pc',
       render: (value: string) => {
         return <Paragraph copyable>{value}</Paragraph>;
       },
     },
+    {
+      title: 'cid',
+      dataIndex: 'cid',
+      render: (value: string) => {
+        return <Paragraph copyable>{value}</Paragraph>;
+      },
+    },
   ];
+
   const fetchData = () => {
     setLoading(true);
     const size = tableParams.pagination?.pageSize || 10;
@@ -150,6 +139,7 @@ function FileList(props: FileListProps) {
         setLoading(false);
       });
   };
+
   const handleTableChange: TableProps['onChange'] = (pagination, filters, sorter) => {
     const hasChangePageSize = pagination.pageSize !== tableParams.pagination?.pageSize;
     setTableParams({
@@ -164,25 +154,27 @@ function FileList(props: FileListProps) {
     });
   };
 
+  const breadItems = useMemo(() => {
+    return filePath.map((pathItem, index) => {
+      return {
+        title: <a onClick={e => e.preventDefault()}>{pathItem.name}</a>,
+        onClick: () => {
+          if (index === filePath.length - 1) {
+            return;
+          }
+          setFilePath(filePath.slice(0, index + 1));
+        },
+      };
+    });
+  }, [filePath]);
+
   useEffect(() => {
     fetchData();
   }, [tableParams.pagination?.current, tableParams.pagination?.pageSize, filePath]);
+
   return (
     <>
-      <Breadcrumb
-        style={{ marginBottom: 16 }}
-        items={filePath.map((pathItem, index) => {
-          return {
-            title: <a onClick={e => e.preventDefault()}>{pathItem.name}</a>,
-            onClick: () => {
-              if (index === filePath.length - 1) {
-                return;
-              }
-              setFilePath(filePath.slice(0, index + 1));
-            },
-          };
-        })}
-      />
+      <Breadcrumb style={{ marginBottom: 16 }} items={breadItems} />
       <Table
         onChange={handleTableChange}
         loading={loading}

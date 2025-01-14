@@ -7,13 +7,13 @@ import { ConfigProvider } from 'antd';
 import zhCN from 'antd/locale/zh_CN';
 
 createRoot(document.getElementById('root')!).render(
-  // <StrictMode>
-  <ConfigProvider locale={zhCN}>
-    <AppConfigProvider>
-      <BrowserRouter>
-        <AppRouter />
-      </BrowserRouter>
-    </AppConfigProvider>
-  </ConfigProvider>,
-  // </StrictMode>,
+  <StrictMode>
+    <ConfigProvider locale={zhCN}>
+      <AppConfigProvider>
+        <BrowserRouter>
+          <AppRouter />
+        </BrowserRouter>
+      </AppConfigProvider>
+    </ConfigProvider>
+  </StrictMode>,
 );
