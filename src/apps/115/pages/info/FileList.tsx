@@ -163,10 +163,17 @@ function FileList(props: FileListProps) {
             return;
           }
           setFilePath(filePath.slice(0, index + 1));
+          setTableParams({
+            ...tableParams,
+            pagination: {
+              ...tableParams.pagination,
+              current: 1,
+            },
+          });
         },
       };
     });
-  }, [filePath]);
+  }, [filePath, tableParams]);
 
   useEffect(() => {
     fetchData();
