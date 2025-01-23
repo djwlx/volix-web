@@ -24,7 +24,7 @@ export function get115LoginStatus() {
   return http.get('/util/115-login-status');
 }
 
-export function get115FileList(params?: { offset: number; pageSize: number; cid?: string }) {
+export function get115FileList(params?: { offset?: number; pageSize?: number; cid?: string }) {
   return http.get('/util/115-files', { params });
 }
 export function get115FileInfo(pc: string) {
@@ -33,4 +33,11 @@ export function get115FileInfo(pc: string) {
       pc,
     },
   });
+}
+export function get115PicInfo() {
+  return http.get('/util/115-pictures');
+}
+
+export function set115PicInfo(data: { type: string; paths: string[] }) {
+  return http.post('/util/115-pictures', data);
 }

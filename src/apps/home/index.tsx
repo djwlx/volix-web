@@ -4,8 +4,8 @@ import AppItem from './components/AppItem';
 function Home() {
   return (
     <FlexContainer>
-      <AppItem path="/115/info" iconUrl="https://img.djwl.top/icon/5.png" title="我的115" description="115信息查询" />
-      <AppItem path="/pic/random" title="随机图片" />
+      <AppItem path="/115" iconUrl="https://img.djwl.top/icon/5.png" title="我的115" description="115应用设置" />
+      {/* <AppItem path="/pic/random" title="随机图片" /> */}
     </FlexContainer>
   );
 }

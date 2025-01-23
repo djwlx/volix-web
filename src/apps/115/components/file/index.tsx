@@ -1,5 +1,5 @@
 import { get115FileInfo, get115FileList } from '@/services/115';
-import { Avatar, Breadcrumb, Button, GetProp, Space, Table, TableProps, Typography } from 'antd';
+import { Avatar, Breadcrumb, Button, Card, GetProp, Space, Table, TableProps, Typography } from 'antd';
 import { useEffect, useMemo, useState } from 'react';
 import type { SorterResult } from 'antd/es/table/interface';
 import { downloadFileByUrl, formatFileSize } from '@/utils';
@@ -26,7 +26,7 @@ function FileList() {
   });
   const [filePath, setFilePath] = useState<FilePath[]>([
     {
-      name: 'root',
+      name: '根目录',
       cid: '0',
     },
   ]);
@@ -176,7 +176,7 @@ function FileList() {
   }, [tableParams.pagination?.current, tableParams.pagination?.pageSize, filePath]);
 
   return (
-    <>
+    <Card title="文件列表">
       <Breadcrumb style={{ marginBottom: 16 }} items={breadItems} />
       <Table
         onChange={handleTableChange}
@@ -186,7 +186,7 @@ function FileList() {
         columns={columns}
         dataSource={data}
       />
-    </>
+    </Card>
   );
 }
 export default FileList;

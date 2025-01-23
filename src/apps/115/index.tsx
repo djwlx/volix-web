@@ -1,13 +1,13 @@
 import { Route, Routes } from 'react-router';
-import Info115 from './pages/info';
+import App115 from './pages/main';
 import { NotFound } from '@/components';
 
-function App115() {
+function Router115() {
   return (
     <Routes>
-      <Route path="/info" element={<Info115 />} />
+      <Route index element={<App115 />} />
       <Route path="*" element={<NotFound />} />
     </Routes>
   );
 }
-export default App115;
+export default Router115;
