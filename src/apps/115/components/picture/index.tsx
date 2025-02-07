@@ -21,11 +21,9 @@ function Picture() {
       label: '当前随机文件夹路径',
       children: (
         <Space direction="vertical">
-          {(picInfo?.paths?.length ? picInfo?.paths : ['2517681593340559288', '3069214990826488941'])?.map(
-            (pathItem: string) => {
-              return <CidPath key={pathItem} cid={pathItem} />;
-            },
-          )}
+          {(picInfo?.paths || [])?.map((pathItem: string) => {
+            return <CidPath key={pathItem} cid={pathItem} />;
+          })}
         </Space>
       ),
     },
