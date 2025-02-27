@@ -52,18 +52,18 @@ function Directories() {
     {
       title: '上次执行时间',
       key: 'action',
-      render: (_, record) => '2023-06-01 12:00:00',
+      render: _ => '2023-06-01 12:00:00',
     },
     {
       title: 'cron表达式',
       key: 'action',
-      render: (_, record) => '2023-06-01 12:00:00',
+      render: _ => '2023-06-01 12:00:00',
     },
     {
       title: '操作',
       fixed: 'right',
       key: 'actions',
-      render: (_, record) => (
+      render: _ => (
         <Space size="middle">
           <a>立即执行</a>
           <a>暂停</a>

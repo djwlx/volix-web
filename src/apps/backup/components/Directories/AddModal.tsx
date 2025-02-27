@@ -11,7 +11,7 @@ type FieldType = {
   local_path?: string;
 };
 function AddModal(props: AddModalProps) {
-  const { visible, closeModal, reload } = props;
+  const { visible, closeModal } = props;
   const submit = () => {};
   return (
     <Modal onOk={submit} title="添加备份任务" open={visible} onCancel={closeModal}>
