@@ -28,7 +28,7 @@ interface StartModalProps extends ModalHookType {
 }
 
 function StartModal(props: StartModalProps) {
-  const { visible, closeModal, reload } = props;
+  const { visible, closeModal, reload, data } = props;
   const [loading, setLoading] = useState(false);
   const [form] = Form.useForm();
 
@@ -36,8 +36,7 @@ function StartModal(props: StartModalProps) {
     try {
       const formValue = await form.validateFields();
       setLoading(true);
-      const result = await set115PicInfo(formValue);
-      console.log(result);
+      await set115PicInfo(formValue);
       setLoading(false);
       message.success('提交成功');
       localStorage.removeItem('config-115-modal');
@@ -83,7 +82,12 @@ function StartModal(props: StartModalProps) {
       }}
     >
       <Form form={form} {...formItemLayoutWithOutLabel}>
-        <Form.Item label="缓存方式" name="type" rules={[{ required: true, message: '请选择缓存方式' }]}>
+        <Form.Item
+          initialValue={'cover'}
+          label="缓存方式"
+          name="type"
+          rules={[{ required: true, message: '请选择缓存方式' }]}
+        >
           <Radio.Group
             options={[
               { value: 'cover', label: '覆盖缓存' },
@@ -93,7 +97,7 @@ function StartModal(props: StartModalProps) {
         </Form.Item>
         <Form.List
           name="paths"
-          initialValue={['']}
+          initialValue={data?.paths || []}
           rules={[
             {
               validator: async (_, paths) => {

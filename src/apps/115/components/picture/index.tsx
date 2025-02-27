@@ -51,7 +51,9 @@ function Picture() {
             type="primary"
             disabled={picInfo?.loading}
             onClick={() => {
-              setModalData('open');
+              setModalData('open', {
+                paths: picInfo?.paths,
+              });
             }}
           >
             开始缓存
